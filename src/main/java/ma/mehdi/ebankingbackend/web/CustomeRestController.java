@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @Slf4j
+@CrossOrigin("*")
 public class CustomeRestController {
     private BankAccountService bankAccountService;
 
@@ -20,6 +21,11 @@ public class CustomeRestController {
    public List<CustomerDTO> customers(){
         return bankAccountService.listCustomers();
    }
+
+    @GetMapping("/customers/search")
+    public List<CustomerDTO> customers(@RequestParam(name="keyword",defaultValue ="") String keyword){
+        return bankAccountService.searchCustomer("%"+keyword+"%");
+    }
 
 
    @GetMapping("/customers/{id}")
